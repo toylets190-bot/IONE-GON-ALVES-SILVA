@@ -5,50 +5,294 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ione Gonçalves - Consultoria e Gestão Pública</title>
+    
+    <!-- Bibliotecas Externas -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .font-serif {
-            font-family: 'Playfair Display', serif;
-        }
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
         @keyframes fade-in-up {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes bounce-slow {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-        .animate-fade-in-up {
-            animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .animate-bounce-slow {
-            animation: bounce-slow 4s ease-in-out infinite;
-        }
-        .glass {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
+        .animate-fade-in { animation: fade-in-up 0.8s ease-out forwards; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
     </style>
 <script type="importmap">
 {
   "imports": {
-    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "react": "https://esm.sh/react@^19.2.4",
     "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.39.0",
     "react/": "https://esm.sh/react@^19.2.4/",
-    "react": "https://esm.sh/react@^19.2.4"
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.39.0"
   }
 }
 </script>
 </head>
-<body class="bg-white text-slate-900 selection:bg-blue-100 selection:text-blue-900">
-    <div id="root"></div>
+<body class="bg-white text-slate-900 overflow-x-hidden">
+
+    <!-- CONFIGURAÇÕES DO SITE (Edite aqui suas informações) -->
+    <script>
+        const siteConfig = {
+            nome: "Ione Gonçalves",
+            titulo: "Consultora em Gestão Pública",
+            whatsapp: "5538999999999", // Apenas números: CodPais + DDD + Numero
+            whatsappDisplay: "(38) 99999-9999",
+            email: "contato@ionegoncalves.com.br",
+            localizacao: "Minas Gerais / Brasil",
+            fotoPerfil: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800",
+            bioCurta: "Especialista em destravar convênios, captar recursos e modernizar a máquina pública municipal.",
+            experiencia: "Mais de 10 anos transformando a gestão de municípios com excelência e legalidade."
+        };
+    </script>
+
+    <!-- HEADER -->
+    <header id="main-header" class="fixed w-full z-50 transition-all duration-300 py-6">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-blue-700 rounded-lg flex items-center justify-center text-white font-bold text-xl">I</div>
+                <span class="font-bold text-xl tracking-tight" id="header-name"></span>
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#sobre" class="text-sm font-semibold hover:text-blue-700 transition-colors uppercase tracking-widest">Sobre</a>
+                <a href="#servicos" class="text-sm font-semibold hover:text-blue-700 transition-colors uppercase tracking-widest">Serviços</a>
+                <a href="#contato" class="bg-slate-900 text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-blue-700 transition-all shadow-lg">Fale Comigo</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-40 pb-20 lg:pt-56 lg:pb-32 bg-slate-50 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+            <div class="animate-fade-in">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-[10px] font-black uppercase tracking-widest mb-6">
+                    <i data-lucide="shield" class="w-3 h-3"></i> Consultoria Técnica Especializada
+                </div>
+                <h1 class="text-5xl lg:text-7xl font-serif text-slate-900 leading-tight mb-8">
+                    Gestão Pública <br><span class="text-blue-700 italic">de Resultados.</span>
+                </h1>
+                <p class="text-xl text-slate-600 mb-10 max-w-lg leading-relaxed font-light" id="hero-bio"></p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#contato" class="bg-blue-700 text-white px-8 py-4 rounded-2xl font-bold hover:bg-slate-900 transition-all shadow-xl flex items-center gap-2">
+                        Solicitar Consultoria <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#servicos" class="bg-white text-slate-900 border border-slate-200 px-8 py-4 rounded-2xl font-bold hover:bg-slate-50 transition-all">Nossas Soluções</a>
+                </div>
+            </div>
+            <div class="relative animate-fade-in" style="animation-delay: 0.2s">
+                <div class="rounded-[2.5rem] overflow-hidden shadow-2xl">
+                    <img id="hero-img" src="" alt="Ione Gonçalves" class="w-full h-[500px] object-cover">
+                </div>
+                <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-3xl shadow-xl border border-slate-100 hidden md:block">
+                    <div class="text-3xl font-black text-blue-700">98%</div>
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-widest">Sucesso em Convênios</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="bg-slate-900 py-12">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="text-3xl font-bold text-white mb-1 font-serif">10+</div>
+                <div class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Anos de Experiência</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold text-white mb-1 font-serif">50+</div>
+                <div class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Municípios Atendidos</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold text-white mb-1 font-serif">98%</div>
+                <div class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Contas Aprovadas</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl font-bold text-white mb-1 font-serif">R$ 50M+</div>
+                <div class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Recursos Captados</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre" class="py-24">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
+            <div>
+                <h2 class="text-4xl font-serif text-slate-900 mb-8">Compromisso com a Legalidade</h2>
+                <p class="text-lg text-slate-600 mb-8 leading-relaxed" id="about-text"></p>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center"><i data-lucide="check" class="w-5 h-5"></i></div>
+                        <span class="font-bold text-slate-800">Especialista em Transferegov</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center"><i data-lucide="check" class="w-5 h-5"></i></div>
+                        <span class="font-bold text-slate-800">Planejamento Orçamentário (PPA, LDO, LOA)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-slate-900 p-12 rounded-[3rem] text-white">
+                <h3 class="text-2xl font-serif mb-6">Nossa Metodologia</h3>
+                <div class="space-y-8">
+                    <div class="flex gap-4">
+                        <span class="text-blue-500 font-black text-2xl">01</span>
+                        <p class="text-slate-400"><strong class="text-white block">Diagnóstico</strong> Análise completa das pendências e oportunidades do município.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="text-blue-500 font-black text-2xl">02</span>
+                        <p class="text-slate-400"><strong class="text-white block">Execução</strong> Suporte diário na captação e gestão de recursos federais e estaduais.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="text-blue-500 font-black text-2xl">03</span>
+                        <p class="text-slate-400"><strong class="text-white block">Prestação de Contas</strong> Rigor técnico para aprovação total nos tribunais de contas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato" class="py-24 bg-slate-50">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-serif mb-8">Vamos Conversar?</h2>
+            <p class="text-slate-600 mb-12 text-lg">Pronto para elevar o nível da gestão do seu município? Entre em contato por um de nossos canais oficiais.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <a id="link-whatsapp" href="#" target="_blank" class="p-8 bg-white rounded-3xl shadow-sm border border-slate-200 flex flex-col items-center hover:scale-105 transition-all">
+                    <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4"><i data-lucide="message-circle" class="w-8 h-8"></i></div>
+                    <h4 class="font-bold text-xl mb-2">WhatsApp</h4>
+                    <p class="text-slate-500" id="display-whatsapp"></p>
+                </a>
+                <a id="link-email" href="#" class="p-8 bg-white rounded-3xl shadow-sm border border-slate-200 flex flex-col items-center hover:scale-105 transition-all">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4"><i data-lucide="mail" class="w-8 h-8"></i></div>
+                    <h4 class="font-bold text-xl mb-2">E-mail</h4>
+                    <p class="text-slate-500" id="display-email"></p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-12 border-t border-slate-100 text-center text-slate-400 text-sm">
+        <p>© 2025 <span id="footer-name"></span>. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- BOTÃO DO CHAT -->
+    <button id="chat-toggle" class="fixed bottom-6 right-6 w-16 h-16 bg-blue-700 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-[100]">
+        <i data-lucide="message-square" id="chat-icon-open"></i>
+        <i data-lucide="x" id="chat-icon-close" class="hidden"></i>
+    </button>
+
+    <!-- JANELA DO CHAT -->
+    <div id="chat-window" class="fixed bottom-24 right-6 w-[350px] sm:w-[400px] h-[500px] bg-white rounded-[2rem] shadow-2xl border border-slate-200 flex flex-col overflow-hidden hidden z-[100] animate-fade-in">
+        <div class="bg-slate-900 p-6 text-white flex items-center gap-3">
+            <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center"><i data-lucide="bot" class="w-6 h-6"></i></div>
+            <div>
+                <h4 class="font-bold text-sm">Assistente Ione</h4>
+                <div class="flex items-center gap-1.5"><span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> <span class="text-[9px] uppercase font-bold tracking-widest text-blue-300">Inteligência Artificial</span></div>
+            </div>
+        </div>
+        <div id="chat-messages" class="flex-grow p-4 overflow-y-auto space-y-4 bg-slate-50/50 text-sm">
+            <div class="bg-white p-4 rounded-2xl rounded-tl-none border border-slate-200 shadow-sm max-w-[85%]">
+                Olá! Como posso ajudar na gestão do seu município hoje?
+            </div>
+        </div>
+        <form id="chat-form" class="p-4 bg-white border-t border-slate-100 flex gap-2">
+            <input type="text" id="chat-input" placeholder="Sua dúvida..." class="flex-grow px-4 py-3 rounded-xl bg-slate-100 border-none outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+            <button type="submit" class="bg-slate-900 text-white p-3 rounded-xl hover:bg-blue-700 transition-colors">
+                <i data-lucide="send" class="w-5 h-5"></i>
+            </button>
+        </form>
+    </div>
+
+    <!-- LÓGICA DO SITE -->
+    <script type="module">
+        import { GoogleGenAI } from "@google/genai";
+
+        // 1. Preenchimento Automático das Informações
+        document.getElementById('header-name').innerText = siteConfig.nome;
+        document.getElementById('footer-name').innerText = siteConfig.nome;
+        document.getElementById('hero-bio').innerText = siteConfig.bioCurta;
+        document.getElementById('about-text').innerText = siteConfig.experiencia;
+        document.getElementById('hero-img').src = siteConfig.fotoPerfil;
+        document.getElementById('display-whatsapp').innerText = siteConfig.whatsappDisplay;
+        document.getElementById('link-whatsapp').href = `https://wa.me/${siteConfig.whatsapp}`;
+        document.getElementById('display-email').innerText = siteConfig.email;
+        document.getElementById('link-email').href = `mailto:${siteConfig.email}`;
+
+        // 2. Efeito de Scroll no Header
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('glass', 'py-3', 'shadow-sm');
+                header.classList.remove('py-6');
+            } else {
+                header.classList.remove('glass', 'py-3', 'shadow-sm');
+                header.classList.add('py-6');
+            }
+        });
+
+        // 3. Controle do Chat
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatWindow = document.getElementById('chat-window');
+        const chatIconOpen = document.getElementById('chat-icon-open');
+        const chatIconClose = document.getElementById('chat-icon-close');
+
+        chatToggle.addEventListener('click', () => {
+            chatWindow.classList.toggle('hidden');
+            chatIconOpen.classList.toggle('hidden');
+            chatIconClose.classList.toggle('hidden');
+        });
+
+        // 4. Lógica da Inteligência Artificial (Gemini)
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.getElementById('chat-messages');
+
+        const addMessage = (text, isBot = false) => {
+            const div = document.createElement('div');
+            div.className = `flex ${isBot ? 'justify-start' : 'justify-end'}`;
+            div.innerHTML = `
+                <div class="max-w-[85%] p-4 rounded-2xl shadow-sm text-sm ${isBot ? 'bg-white text-slate-800 rounded-tl-none border border-slate-200' : 'bg-blue-700 text-white rounded-tr-none'}">
+                    ${text}
+                </div>
+            `;
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return div;
+        };
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const msg = chatInput.value.trim();
+            if (!msg) return;
+
+            addMessage(msg, false);
+            chatInput.value = '';
+
+            const loadingMsg = addMessage("Digitando...", true);
+            
+            try {
+                const ai = new GoogleGenAI({ apiKey: "COLOQUE_SUA_CHAVE_AQUI" }); // No Github/Vercel use process.env.API_KEY
+                const response = await ai.models.generateContent({
+                    model: 'gemini-3-flash-preview',
+                    contents: msg,
+                    config: {
+                        systemInstruction: `Você é a IA da ${siteConfig.nome}. Responda de forma profissional sobre gestão pública. Contato: ${siteConfig.whatsappDisplay}.`
+                    }
+                });
+                loadingMsg.querySelector('div').innerText = response.text;
+            } catch (err) {
+                loadingMsg.querySelector('div').innerText = "Desculpe, meu sistema está em manutenção. Por favor, fale com a Ione pelo WhatsApp!";
+            }
+        });
+
+        // Inicializa ícones
+        lucide.createIcons();
+    </script>
 </body>
 </html>

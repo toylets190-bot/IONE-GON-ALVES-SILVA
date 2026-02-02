@@ -1,82 +1,67 @@
 
-import { FileSpreadsheet, Globe, PiggyBank, Search, Target, TrendingUp } from 'lucide-react';
+import { FileSpreadsheet, Globe, PiggyBank, Search, Target, TrendingUp, ShieldCheck, Users } from 'lucide-react';
 import React from 'react';
 
-// --- CONFIGURAÇÃO DE ÍCONES (Não mexer aqui) ---
-const Award = (props: any) => React.createElement(TrendingUp, props);
-const Building2 = (props: any) => React.createElement(Globe, props);
+// --- GUIA DE EDIÇÃO ---
+// 1. Fotos: Coloque o link entre as aspas em 'image'.
+// 2. Textos: Altere o que está entre as aspas.
+// 3. WhatsApp: Use o formato 55 + DDD + Numero (sem espaços).
 
 export const siteConfig = {
-  // --- SUAS INFORMAÇÕES PESSOAIS ---
   personal: {
-    name: "Ione Gonçalves", // Seu nome completo
-    title: "Consultora em Gestão Pública", // Seu cargo/título
-    shortBio: "Especialista em assessoria para municípios, convênios e modernização administrativa.",
-    
-    // Sua biografia detalhada (Aparece na seção "Sobre")
-    fullBio: "Com mais de uma década de experiência no setor público, Ione Gonçalves é referência em consultoria para prefeituras. Sua atuação é focada na desburocratização, captação de recursos estratégicos e execução rigorosa de convênios, garantindo que a gestão municipal seja sinônimo de eficiência e legalidade.",
-    
-    experienceYears: "10+", // Anos de experiência
-    location: "Minas Gerais / Atendimento em todo Brasil", // Onde você atende
-    
-    // FOTO PRINCIPAL: Coloque o link da sua foto entre as aspas abaixo
+    name: "Ione Gonçalves",
+    title: "Consultoria & Gestão Pública",
+    shortBio: "Especialista em destravar recursos federais e modernizar a administração municipal.",
+    fullBio: "Com mais de uma década de atuação, Ione Gonçalves é especialista em converter burocracia em resultados. Atua diretamente na captação de recursos estratégicos e na gestão técnica de convênios, garantindo que o município cumpra todas as exigências dos órgãos fiscalizadores.",
+    experienceYears: "10+",
+    location: "Minas Gerais | Atendimento Nacional",
+    // TROQUE O LINK DA FOTO ABAIXO
     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800",
   },
 
-  // --- SEUS CONTATOS ---
   contact: {
-    // WhatsApp: Apenas números, com o código do país (55) e o DDD. Ex: 5538999999999
     whatsapp: "5538999999999", 
-    whatsappDisplay: "(38) 99999-9999", // Como o número aparece visualmente no site
+    whatsappDisplay: "(38) 99999-9999",
     email: "contato@ionegoncalves.com.br",
-    
-    // Links das redes sociais (se não tiver, pode deixar vazio "")
-    linkedin: "https://linkedin.com/in/ionegoncalves",
-    instagram: "https://instagram.com/ionegoncalves",
-    facebook: "https://facebook.com/ionegoncalves",
+    linkedin: "#",
+    instagram: "#",
   },
 
-  // --- NÚMEROS DE DESTAQUE (Aparecem logo abaixo do início) ---
+  // ÍCONES DE DESTAQUE
   stats: [
-    { label: "Anos de Experiência", value: "10+", icon: Award },
-    { label: "Municípios Atendidos", value: "50+", icon: Building2 },
-    { label: "Aprovação em Convênios", value: "98%", icon: TrendingUp },
+    { label: "Anos de Experiência", value: "10+", icon: TrendingUp },
+    { label: "Municípios Atendidos", value: "50+", icon: Globe },
+    { label: "Aprovação Técnica", value: "98%", icon: ShieldCheck },
     { label: "Recursos Captados", value: "R$ 50M+", icon: PiggyBank },
   ],
 
-  // --- SEUS SERVIÇOS (Você pode mudar os nomes e as descrições abaixo) ---
   services: [
     {
       title: "Gestão de Convênios",
-      desc: "Operacionalização completa no Transferegov, desde o cadastramento até a prestação de contas final.",
+      desc: "Domínio completo do Transferegov, do cadastro à prestação de contas final sem glosas.",
       icon: FileSpreadsheet,
-      color: "blue"
     },
     {
       title: "Captação de Recursos",
-      desc: "Identificação de editais e oportunidades de emendas parlamentares para o seu município.",
+      desc: "Identificação estratégica de emendas e editais para financiamento de obras e saúde.",
       icon: PiggyBank,
-      color: "blue"
     },
     {
-      title: "Planejamento Estratégico",
-      desc: "Apoio técnico na elaboração de PPA, LDO e LOA, alinhando metas à viabilidade orçamentária.",
+      title: "Planejamento Orçamentário",
+      desc: "Suporte técnico na elaboração de PPA, LDO e LOA com foco em viabilidade real.",
       icon: Target,
-      color: "slate"
     },
     {
       title: "Auditoria e Compliance",
-      desc: "Análise preventiva de processos administrativos para evitar apontamentos em tribunais de contas.",
+      desc: "Revisão preventiva de processos para evitar apontamentos em Tribunais de Contas.",
       icon: Search,
-      color: "slate"
     }
   ],
 
-  // --- PASSO A PASSO DO SEU TRABALHO ---
   process: [
-    { step: "01", title: "Diagnóstico", desc: "Análise profunda da situação atual dos convênios do município." },
-    { step: "02", title: "Planejamento", desc: "Criação de um cronograma de ações para captação de recursos." },
-    { step: "03", title: "Execução", desc: "Acompanhamento técnico diário e suporte direto às secretarias." },
-    { step: "04", title: "Resultados", desc: "Entrega de obras concluídas e contas aprovadas com transparência." }
+    { step: "01", title: "Diagnóstico", desc: "Análise situacional de convênios e pendências do município." },
+    { step: "02", title: "Estratégia", desc: "Criação de um plano de metas para captação e regularização." },
+    { step: "03", title: "Execução", desc: "Acompanhamento técnico presencial e remoto diário." },
+    { step: "04", title: "Resultado", desc: "Aprovação de contas e entrega de benefícios à população." }
   ]
 };
